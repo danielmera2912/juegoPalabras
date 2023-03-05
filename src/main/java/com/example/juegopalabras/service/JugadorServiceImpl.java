@@ -1,4 +1,5 @@
 package com.example.juegopalabras.service;
+import com.example.juegopalabras.modelo.Equipo;
 import com.example.juegopalabras.modelo.Jugador;
 import com.example.juegopalabras.repos.JugadorRepository;
 import lombok.RequiredArgsConstructor;
@@ -38,5 +39,10 @@ public class JugadorServiceImpl implements JugadorService {
     @Override
     public boolean existsById(Long id) {
         return jugadorRepository.existsById(id);
+    }
+
+    @Override
+    public List<Jugador> findByEquipo(Equipo equipo) {
+        return jugadorRepository.findByEquipo(equipo);
     }
 }
