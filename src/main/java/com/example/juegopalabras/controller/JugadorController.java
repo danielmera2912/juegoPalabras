@@ -33,7 +33,7 @@ public class JugadorController {
     public Jugador newJugador(@RequestBody Jugador newJugador){
         newJugador.setFechaCreacion(LocalDateTime.now());
         newJugador.setFechaModificacion(LocalDateTime.now());
-        newJugador.setRol("USER");
+        newJugador.setRol("user");
         return jugadorService.save(newJugador);
     }
 

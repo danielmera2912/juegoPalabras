@@ -28,7 +28,4 @@ public class Jugador {
     @NotFound(action = NotFoundAction.IGNORE)
     @JoinColumn(name="id_equipo")
     private Equipo equipo;
-    public void setRol(String rol) {
-        this.rol = rol.toUpperCase();
-    }
 }
