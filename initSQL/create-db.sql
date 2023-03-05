@@ -98,6 +98,7 @@ SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
 
 
 
+
 -- Datos para la tabla equipo
 INSERT INTO juegoPalabra.equipo (nombre, logo, fecha_creacion, fecha_modificacion) VALUES
 ('Rojo', 'https://example.com/rojo_logo.png', '2022-01-01', '2022-01-02'),
