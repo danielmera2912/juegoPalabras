@@ -13,4 +13,5 @@ public interface JugadorService {
     boolean existsById(Long id);
 
     List<Jugador> findByEquipo(Equipo equipo);
+    List<Jugador> obtenerJugadoresPorEquipo(Long id_equipo);
 }

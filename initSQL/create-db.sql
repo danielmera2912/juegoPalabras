@@ -30,25 +30,25 @@ CREATE TABLE IF NOT EXISTS `juegoPalabra`.`equipo` (
 -- -----------------------------------------------------
 -- Table `juegoPalabra`.`jugador`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `juegoPalabra`.`jugador` (
-                                                        `id` INT NOT NULL AUTO_INCREMENT,
-                                                        `nombre` VARCHAR(45) NOT NULL,
-    `clave` VARCHAR(45) NOT NULL,
-    `avatar` VARCHAR(100) NOT NULL,
-    `id_equipo` INT NOT NULL,
-    `rol` VARCHAR(45) NOT NULL,
-    `correo` VARCHAR(50) NOT NULL,
-    `fecha_creacion` DATE NOT NULL,
-    `fecha_modificacion` DATE NOT NULL,
-    PRIMARY KEY (`id`),
-    INDEX `fk_Jugador_Equipo1_idx` (`id_equipo` ASC) VISIBLE,
-    UNIQUE INDEX `correo_UNIQUE` (`correo` ASC) VISIBLE,
-    CONSTRAINT `fk_Jugador_Equipo1`
-    FOREIGN KEY (`id_equipo`)
-    REFERENCES `juegoPalabra`.`equipo` (`id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
-    ENGINE = InnoDB;
+CREATE TABLE IF NOT EXISTS juegoPalabra.jugador (
+                                                    id INT NOT NULL AUTO_INCREMENT,
+                                                    nombre VARCHAR(45) NOT NULL,
+    clave VARCHAR(45) NOT NULL,
+    avatar VARCHAR(100) NOT NULL,
+    id_equipo INT NULL,
+    rol VARCHAR(45) NOT NULL,
+    correo VARCHAR(50) NOT NULL,
+    fecha_creacion DATE NOT NULL,
+    fecha_modificacion DATE NOT NULL,
+    PRIMARY KEY (id),
+    INDEX fk_Jugador_Equipo1_idx (id_equipo ASC) VISIBLE,
+    UNIQUE INDEX correo_UNIQUE (correo ASC) VISIBLE,
+    CONSTRAINT fk_Jugador_Equipo1
+    FOREIGN KEY (id_equipo)
+    REFERENCES juegoPalabra.equipo (id)
+    ON DELETE SET NULL
+    ON UPDATE NO ACTION
+    ) ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
@@ -69,6 +69,9 @@ CREATE TABLE IF NOT EXISTS `juegoPalabra`.`juego` (
 -- -----------------------------------------------------
 -- Table `juegoPalabra`.`partida`
 -- -----------------------------------------------------
+-- -----------------------------------------------------
+-- Table `juegoPalabra`.`partida`
+-- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `juegoPalabra`.`partida` (
                                                         `id_jugador` INT NOT NULL,
                                                         `id_juego` INT NOT NULL,
@@ -82,14 +85,14 @@ CREATE TABLE IF NOT EXISTS `juegoPalabra`.`partida` (
     CONSTRAINT `fk_Jugador_has_Juego_Jugador`
     FOREIGN KEY (`id_jugador`)
     REFERENCES `juegoPalabra`.`jugador` (`id`)
-    ON DELETE NO ACTION
+    ON DELETE CASCADE
     ON UPDATE NO ACTION,
     CONSTRAINT `fk_Jugador_has_Juego_Juego1`
     FOREIGN KEY (`id_juego`)
     REFERENCES `juegoPalabra`.`juego` (`id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
-    ENGINE = InnoDB;
+    ON DELETE CASCADE
+    ON UPDATE NO ACTION
+    ) ENGINE = InnoDB;
 
 
 SET SQL_MODE=@OLD_SQL_MODE;

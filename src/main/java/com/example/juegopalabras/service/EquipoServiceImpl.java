@@ -1,8 +1,6 @@
 package com.example.juegopalabras.service;
 import com.example.juegopalabras.modelo.Equipo;
-import com.example.juegopalabras.modelo.Jugador;
 import com.example.juegopalabras.repos.EquipoRepository;
-import com.example.juegopalabras.repos.JugadorRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -14,7 +12,6 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class EquipoServiceImpl implements EquipoService {
     private final EquipoRepository equipoRepository;
-    private final JugadorRepository jugadorRepository;
 
     @Override
     public List<Equipo> findAll() {
@@ -43,8 +40,4 @@ public class EquipoServiceImpl implements EquipoService {
         return equipoRepository.existsById(id);
     }
 
-    @Override
-    public List<Jugador> findByEquipo(Equipo equipo) {
-        return jugadorRepository.findByEquipo(equipo);
-    }
 }
