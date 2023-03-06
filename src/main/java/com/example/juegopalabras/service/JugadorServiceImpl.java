@@ -28,6 +28,7 @@ public class JugadorServiceImpl implements JugadorService {
     public Jugador save(Jugador jugador) {
         jugador.setFechaCreacion(LocalDateTime.now());
         jugador.setFechaModificacion(LocalDateTime.now());
+        jugador.setRol("user");
         return jugadorRepository.save(jugador);
     }
 
@@ -43,6 +44,11 @@ public class JugadorServiceImpl implements JugadorService {
 
     @Override
     public List<Jugador> findByEquipo(Equipo equipo) {
-        return jugadorRepository.findByEquipo(equipo);
+        return jugadorRepository.findByEquipoId(equipo.getId());
+    }
+
+    @Override
+    public List<Jugador> obtenerJugadoresPorEquipo(Long id_equipo) {
+        return jugadorRepository.findByEquipoId(id_equipo);
     }
 }

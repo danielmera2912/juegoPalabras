@@ -4,6 +4,7 @@ import com.example.juegopalabras.error.JugadorNotFoundException;
 import com.example.juegopalabras.modelo.Jugador;
 import com.example.juegopalabras.service.JugadorService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
@@ -31,9 +32,6 @@ public class JugadorController {
 
     @PostMapping("/jugador")
     public Jugador newJugador(@RequestBody Jugador newJugador){
-        newJugador.setFechaCreacion(LocalDateTime.now());
-        newJugador.setFechaModificacion(LocalDateTime.now());
-        newJugador.setRol("user");
         return jugadorService.save(newJugador);
     }
 
@@ -64,5 +62,13 @@ public class JugadorController {
             throw new JugadorNotFoundException(id);
         }
     }
+    @GetMapping("/equipo/{id_equipo}/jugadores")
+    public ResponseEntity<List<Jugador>> obtenerJugadoresPorEquipo(@PathVariable Long id_equipo) {
+        List<Jugador> jugadores = jugadorService.obtenerJugadoresPorEquipo(id_equipo);
 
+        if(jugadores == null || jugadores.isEmpty()){
+            throw new JugadorNotFoundException();
+        }
+        return ResponseEntity.ok(jugadores);
+    }
 }

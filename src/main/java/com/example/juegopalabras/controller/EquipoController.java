@@ -2,9 +2,7 @@ package com.example.juegopalabras.controller;
 
 import com.example.juegopalabras.error.EquipoNotFoundException;
 import com.example.juegopalabras.modelo.Equipo;
-import com.example.juegopalabras.modelo.Jugador;
 import com.example.juegopalabras.service.EquipoService;
-import com.example.juegopalabras.service.JugadorService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
@@ -15,7 +13,6 @@ import java.util.List;
 @RequiredArgsConstructor
 public class EquipoController {
     private final EquipoService equipoService;
-    private final JugadorService jugadorService;
     @GetMapping("/equipo")
     public List<Equipo> obtenerTodos() {
         List<Equipo> result =  equipoService.findAll();
@@ -29,12 +26,7 @@ public class EquipoController {
     public Equipo obtenerUno(@PathVariable Long id) {
         return equipoService.findById(id).orElseThrow(() -> new EquipoNotFoundException(id));
     }
-    @GetMapping("/equipo/{id}/jugadores")
-    public List<Jugador> obtenerJugadoresPorEquipo(@PathVariable Long id) {
-        Equipo equipo = equipoService.findById(id)
-                .orElseThrow(() -> new EquipoNotFoundException(id));
-        return jugadorService.findByEquipo(equipo);
-    }
+
     @PostMapping("/equipo")
     public Equipo newEquipo(@RequestBody Equipo newEquipo){
         return equipoService.save(newEquipo);
