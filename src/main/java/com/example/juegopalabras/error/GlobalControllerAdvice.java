@@ -26,7 +26,11 @@ public class GlobalControllerAdvice extends ResponseEntityExceptionHandler {
         ApiError apiError = new ApiError(HttpStatus.NOT_FOUND, ex.getMessage());
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(apiError);
     }
-
+    @ExceptionHandler(JuegoNotFoundException.class)
+    public ResponseEntity<ApiError> handleBreweryNoEncontrado(JuegoNotFoundException ex){
+        ApiError apiError = new ApiError(HttpStatus.NOT_FOUND, ex.getMessage());
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(apiError);
+    }
     @ExceptionHandler({SQLException.class})
     public ResponseEntity<Object> handleSQLException(SQLException ex, WebRequest request) {
         ApiError apiError = new ApiError(HttpStatus.INTERNAL_SERVER_ERROR, ex.getMessage());

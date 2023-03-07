@@ -127,3 +127,11 @@ INSERT INTO juegoPalabra.partida (id_jugador, id_juego, intentos, palabra, punto
 (1, 2, 3, 'gato', 70, '2022-01-01'),
 (2, 1, 5, 'casa', 30, '2022-01-01'),
 (3, 3, 1, 'helicóptero', 100, '2022-01-01');
+
+-- Datos para la tabla juego
+
+INSERT INTO juegoPalabra.juego (nombre, intentos, dificultad, instrucciones, fecha_modificacion, fecha_creacion)
+VALUES
+    ('Palabras Fáciles', 3, 'facil', 'Adivina las palabras fáciles', '2022-03-01', '2022-02-28'),
+    ('Palabras Normales', 5, 'normal', 'Adivina las palabras de dificultad normal', '2022-03-02', '2022-02-28'),
+    ('Palabras Difíciles', 7, 'dificil', 'Adivina las palabras difíciles', '2022-03-03', '2022-02-28');
