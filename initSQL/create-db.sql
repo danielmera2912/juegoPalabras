@@ -73,13 +73,15 @@ CREATE TABLE IF NOT EXISTS `juegoPalabra`.`juego` (
 -- Table `juegoPalabra`.`partida`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `juegoPalabra`.`partida` (
+                                                        `id` INT NOT NULL AUTO_INCREMENT,
                                                         `jugador_id` INT NOT NULL,
                                                         `juego_id` INT NOT NULL,
                                                         `intentos` TINYINT(2) NOT NULL,
     `palabra` VARCHAR(45) NOT NULL,
     `puntos` INT NOT NULL,
     `fecha` DATE NOT NULL,
-    PRIMARY KEY (`jugador_id`, `juego_id`),
+    PRIMARY KEY (`id`),
+    UNIQUE KEY `jugador_juego` (`jugador_id`, `juego_id`),
     INDEX `fk_Jugador_has_Juego_Juego1_idx` (`juego_id` ASC) VISIBLE,
     INDEX `fk_Jugador_has_Juego_Jugador_idx` (`jugador_id` ASC) VISIBLE,
     CONSTRAINT `fk_Jugador_has_Juego_Jugador`
@@ -93,6 +95,7 @@ CREATE TABLE IF NOT EXISTS `juegoPalabra`.`partida` (
     ON DELETE CASCADE
     ON UPDATE NO ACTION
     ) ENGINE = InnoDB;
+
 
 
 SET SQL_MODE=@OLD_SQL_MODE;
