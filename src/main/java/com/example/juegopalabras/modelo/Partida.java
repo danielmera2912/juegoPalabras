@@ -1,37 +1,30 @@
 package com.example.juegopalabras.modelo;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
 import javax.persistence.*;
-import java.io.Serializable;
-import java.util.Date;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 
-@Data @NoArgsConstructor @AllArgsConstructor @Entity
+@Data @NoArgsConstructor @AllArgsConstructor @Builder @Entity
 public class Partida {
 
-    @EmbeddedId
-    private PartidaId id;
-
-    @ManyToOne(fetch = FetchType.LAZY)
-    @MapsId("jugadorId")
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+    @JsonBackReference
+    @ManyToOne
+    @JoinColumn(name = "jugador_id")
     private Jugador jugador;
-
-    @ManyToOne(fetch = FetchType.LAZY)
-    @MapsId("juegoId")
+    @JsonBackReference
+    @ManyToOne
+    @JoinColumn(name = "juego_id")
     private Juego juego;
-
-    @Column(name = "intentos")
     private Integer intentos;
-
-    @Column(name = "palabra")
     private String palabra;
-
-    @Column(name = "puntos")
     private Integer puntos;
-
-    @Column(name = "fecha")
-    private Date fecha;
-
+    private LocalDateTime fecha;
 }

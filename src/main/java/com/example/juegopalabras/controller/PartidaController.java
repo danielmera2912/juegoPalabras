@@ -1,78 +1,66 @@
 package com.example.juegopalabras.controller;
 
+import com.example.juegopalabras.error.PartidaNotFoundException;
 import com.example.juegopalabras.modelo.Partida;
 import com.example.juegopalabras.repos.PartidaRepository;
+import com.example.juegopalabras.service.PartidaService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
-import java.util.Optional;
 
 @RestController
-@RequestMapping("/partida")
+@RequiredArgsConstructor
 public class PartidaController {
-
     @Autowired
-    private PartidaRepository partidaRepository;
-
-    @GetMapping("/{id}")
-    public ResponseEntity<Partida> getPartida(@PathVariable Long id) {
-        Optional<Partida> partida = partidaRepository.findById(id);
-        if (partida.isPresent()) {
-            return ResponseEntity.ok(partida.get());
-        } else {
-            return ResponseEntity.notFound().build();
+    private PartidaService partidaService;
+    @GetMapping("/partida")
+    public List<Partida> obtenerTodos() {
+        List<Partida> result =  partidaService.findAll();
+        if(result.isEmpty()){
+            throw new PartidaNotFoundException();
         }
+        return result;
     }
 
-    @PostMapping
-    public ResponseEntity<Partida> crearPartida(@RequestBody Partida partida) {
-        Partida nuevaPartida = partidaRepository.save(partida);
-        return ResponseEntity.created(
-                        ServletUriComponentsBuilder.fromCurrentRequest()
-                                .path("/{id}")
-                                .buildAndExpand(nuevaPartida.getId())
-                                .toUri())
-                .body(nuevaPartida);
+    @GetMapping("/partida/{id}")
+    public Partida getPartida(@PathVariable Long id) {
+        return partidaService.findById(id).orElseThrow(() -> new PartidaNotFoundException(id));
     }
 
-    @PutMapping("/{id}")
-    public ResponseEntity<Partida> actualizarPartida(@PathVariable Long id, @RequestBody Partida partida) {
-        Optional<Partida> partidaExistente = partidaRepository.findById(id);
-        if (partidaExistente.isPresent()) {
-            Partida partidaActualizada = partidaExistente.get();
-            partidaActualizada.setIntentos(partida.getIntentos());
-            partidaActualizada.setPalabra(partida.getPalabra());
-            partidaActualizada.setPuntos(partida.getPuntos());
-            partidaActualizada.setFecha(partida.getFecha());
-            partidaRepository.save(partidaActualizada);
-            return ResponseEntity.ok(partidaActualizada);
-        } else {
-            return ResponseEntity.notFound().build();
+    @PostMapping("/partida")
+    public Partida newPartida(@RequestBody Partida newPartida)
+    {
+        return partidaService.save(newPartida);
+    }
+
+    @PutMapping("/partida/{id}")
+    public Partida updatePartida(@RequestBody Partida partidaUpdate, @PathVariable Long id) {
+        if(partidaService.existsById(id)){
+            Partida partida = partidaService.findById(id).get();
+            partida.setIntentos(partidaUpdate.getIntentos());
+            partida.setPalabra(partidaUpdate.getPalabra());
+            partida.setPuntos(partidaUpdate.getPuntos());
+            return partidaService.save(partidaUpdate);
+        }else{
+            throw new PartidaNotFoundException(id);
         }
+
     }
 
-    @DeleteMapping("/{id}")
-    public ResponseEntity<Void> eliminarPartida(@PathVariable Long id) {
-        Optional<Partida> partida = partidaRepository.findById(id);
-        if (partida.isPresent()) {
-            partidaRepository.delete(partida.get());
-            return ResponseEntity.noContent().build();
-        } else {
-            return ResponseEntity.notFound().build();
+    @DeleteMapping("partida/{id}")
+    public Partida deletePartida(@PathVariable Long id) {
+        if(partidaService.existsById(id)){
+            Partida result = partidaService.findById(id).get();
+            partidaService.deleteById(id);
+            return result;
+        }else{
+            throw new PartidaNotFoundException(id);
         }
-    }
 
-    @GetMapping("/jugador/{idJugador}")
-    public List<Partida> getPartidasByJugador(@PathVariable Long idJugador) {
-        return partidaRepository.findAllByJugadorId(Math.toIntExact(idJugador));
     }
-
-    @GetMapping("/juego/{idJuego}")
-    public List<Partida> getPartidasByJuego(@PathVariable Long idJuego) {
-        return partidaRepository.findAllByJuegoId(Math.toIntExact(idJuego));
-    }
-
 }
+

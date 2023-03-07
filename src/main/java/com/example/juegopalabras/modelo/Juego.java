@@ -1,12 +1,15 @@
 package com.example.juegopalabras.modelo;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import lombok.*;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
-@Data @NoArgsConstructor @AllArgsConstructor @Entity
+import java.util.HashSet;
+import java.util.Set;
+
+@Data @Builder @NoArgsConstructor @AllArgsConstructor @Entity
 public class Juego {
     @Id
     @GeneratedValue
@@ -21,6 +24,11 @@ public class Juego {
 
     @Column(name = "fecha_modificacion")
     private LocalDateTime fechaModificacion;
+    @EqualsAndHashCode.Exclude @ToString.Exclude
+    @JsonManagedReference
+    @Builder.Default
+    @OneToMany(mappedBy = "juego", cascade = CascadeType.ALL)
+    private Set<Partida> partidas = new HashSet<>();
     enum Dificultad {
         FACIL, NORMAL, DIFICIL
     }
