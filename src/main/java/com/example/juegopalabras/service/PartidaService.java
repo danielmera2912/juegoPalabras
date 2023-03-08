@@ -14,4 +14,6 @@ public interface PartidaService {
     List<Partida> findByJugadorId(Long jugadorId);
 
     int getTotalPuntosByJugadorId(Long jugadorId);
+
+    String obtenerPalabra();
 }

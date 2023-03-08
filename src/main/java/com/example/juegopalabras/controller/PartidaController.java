@@ -1,15 +1,11 @@
 package com.example.juegopalabras.controller;
 
-import com.example.juegopalabras.error.JugadorNotFoundException;
 import com.example.juegopalabras.error.PartidaNotFoundException;
 import com.example.juegopalabras.modelo.Partida;
-import com.example.juegopalabras.repos.PartidaRepository;
 import com.example.juegopalabras.service.PartidaService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 @RequestMapping(produces = "application/json")
@@ -34,6 +30,11 @@ public class PartidaController {
     @GetMapping("/jugador/{id}/puntos")
     public int getPuntosTotalesJugador(@PathVariable Long id) {
             return  partidaService.getTotalPuntosByJugadorId(id);
+
+    }
+    @GetMapping("/palabra")
+    public String obtenerPalabra() {
+        return  partidaService.obtenerPalabra();
 
     }
     @PostMapping("/partida")
