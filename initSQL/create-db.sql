@@ -81,7 +81,6 @@ CREATE TABLE IF NOT EXISTS `juegoPalabra`.`partida` (
     `puntos` INT NOT NULL,
     `fecha` DATE NOT NULL,
     PRIMARY KEY (`id`),
-    UNIQUE KEY `jugador_juego` (`jugador_id`, `juego_id`),
     INDEX `fk_Jugador_has_Juego_Juego1_idx` (`juego_id` ASC) VISIBLE,
     INDEX `fk_Jugador_has_Juego_Jugador_idx` (`jugador_id` ASC) VISIBLE,
     CONSTRAINT `fk_Jugador_has_Juego_Jugador`
@@ -95,6 +94,7 @@ CREATE TABLE IF NOT EXISTS `juegoPalabra`.`partida` (
     ON DELETE CASCADE
     ON UPDATE NO ACTION
     ) ENGINE = InnoDB;
+
 
 
 
