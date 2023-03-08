@@ -15,11 +15,9 @@ public class Partida {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @JsonBackReference
     @ManyToOne
     @JoinColumn(name = "jugador_id")
     private Jugador jugador;
-    @JsonBackReference
     @ManyToOne
     @JoinColumn(name = "juego_id")
     private Juego juego;

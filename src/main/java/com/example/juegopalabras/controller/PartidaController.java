@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
-
+@RequestMapping(produces = "application/json")
 @RestController
 @RequiredArgsConstructor
 public class PartidaController {

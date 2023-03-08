@@ -1,5 +1,6 @@
 package com.example.juegopalabras.modelo;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.*;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
@@ -25,7 +26,7 @@ public class Juego {
     @Column(name = "fecha_modificacion")
     private LocalDateTime fechaModificacion;
     @EqualsAndHashCode.Exclude @ToString.Exclude
-    @JsonManagedReference
+    @JsonIgnore
     @Builder.Default
     @OneToMany(mappedBy = "juego", cascade = CascadeType.ALL)
     private Set<Partida> partidas = new HashSet<>();

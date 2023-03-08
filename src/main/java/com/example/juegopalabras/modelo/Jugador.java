@@ -1,10 +1,9 @@
 package com.example.juegopalabras.modelo;
 
-import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 import org.hibernate.annotations.NotFound;
 import org.hibernate.annotations.NotFoundAction;
-import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -31,7 +30,7 @@ public class Jugador {
     @JoinColumn(name="id_equipo")
     private Equipo equipo;
     @EqualsAndHashCode.Exclude @ToString.Exclude
-    @JsonManagedReference
+    @JsonIgnore
     @Builder.Default
     @OneToMany(mappedBy = "jugador", cascade = CascadeType.ALL)
     private Set<Partida> partidas = new HashSet<>();
