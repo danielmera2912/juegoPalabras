@@ -1,5 +1,6 @@
 package com.example.juegopalabras.controller;
 
+import com.example.juegopalabras.error.JugadorNotFoundException;
 import com.example.juegopalabras.error.PartidaNotFoundException;
 import com.example.juegopalabras.modelo.Partida;
 import com.example.juegopalabras.repos.PartidaRepository;
@@ -32,12 +33,8 @@ public class PartidaController {
     }
     @GetMapping("/jugador/{id}/puntos")
     public int getPuntosTotalesJugador(@PathVariable Long id) {
-        List<Partida> partidas = partidaService.findByJugadorId(id);
-        int puntosTotales = 0;
-        for (Partida partida : partidas) {
-            puntosTotales += partida.getPuntos();
-        }
-        return puntosTotales;
+            return  partidaService.getTotalPuntosByJugadorId(id);
+
     }
     @PostMapping("/partida")
     public Partida newPartida(@RequestBody Partida newPartida)

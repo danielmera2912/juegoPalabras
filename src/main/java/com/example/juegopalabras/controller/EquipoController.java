@@ -29,9 +29,9 @@ public class EquipoController {
         return result;
     }
     @GetMapping("/equipo/{id}/puntos")
-    public Integer obtenerPuntosTotales(@PathVariable Long id) {
+    public int obtenerPuntosTotales(@PathVariable Long id) {
         List<Jugador> jugadores = equipoService.findById(id).orElseThrow(() -> new EquipoNotFoundException(id)).getJugadores();
-        Integer totalPuntos = 0;
+        int totalPuntos = 0;
 
         for (Jugador jugador : jugadores) {
             totalPuntos += partidaService.getTotalPuntosByJugadorId(jugador.getId());

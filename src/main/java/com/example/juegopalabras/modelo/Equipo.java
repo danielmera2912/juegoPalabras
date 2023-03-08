@@ -1,5 +1,6 @@
 package com.example.juegopalabras.modelo;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -20,8 +21,7 @@ public class Equipo {
     @Column(name = "fecha_modificacion")
     private LocalDateTime fechaModificacion;
     @OneToMany(mappedBy = "equipo")
+    @JsonIgnore
     private List<Jugador> jugadores;
-    public List<Jugador> getJugadores() {
-        return jugadores;
-    }
+
 }

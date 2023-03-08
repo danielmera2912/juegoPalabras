@@ -1,5 +1,6 @@
 package com.example.juegopalabras.service;
 
+import com.example.juegopalabras.error.JugadorNotFoundException;
 import com.example.juegopalabras.modelo.Partida;
 import com.example.juegopalabras.repos.PartidaRepository;
 import lombok.RequiredArgsConstructor;
@@ -44,6 +45,9 @@ public class PartidaServiceImpl implements PartidaService{
     @Override
     public int getTotalPuntosByJugadorId(Long jugadorId) {
         List<Partida> partidas = findByJugadorId(jugadorId);
+        if(partidas == null || partidas.isEmpty()){
+            throw new JugadorNotFoundException(jugadorId);
+        }
         int totalPuntos = 0;
         for (Partida partida : partidas) {
             totalPuntos += partida.getPuntos();
