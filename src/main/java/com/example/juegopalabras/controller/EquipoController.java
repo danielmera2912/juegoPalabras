@@ -3,7 +3,7 @@ package com.example.juegopalabras.controller;
 import com.example.juegopalabras.error.EquipoNotFoundException;
 import com.example.juegopalabras.modelo.Equipo;
 import com.example.juegopalabras.modelo.Jugador;
-import com.example.juegopalabras.service.EquipoService;
+import com.example.juegopalabras.service.EquipoServiceImpl;
 import com.example.juegopalabras.service.JugadorService;
 import com.example.juegopalabras.service.PartidaService;
 import lombok.RequiredArgsConstructor;
@@ -17,7 +17,7 @@ import java.util.Map;
 @RestController
 @RequiredArgsConstructor
 public class EquipoController {
-    private final EquipoService equipoService;
+    private final EquipoServiceImpl equipoService;
     private final JugadorService jugadorService;
     private final PartidaService partidaService;
     @GetMapping("/equipo")
