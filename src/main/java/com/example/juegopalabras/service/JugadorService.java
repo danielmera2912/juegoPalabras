@@ -14,4 +14,6 @@ public interface JugadorService {
 
     List<Jugador> findByEquipo(Equipo equipo);
     List<Jugador> obtenerJugadoresPorEquipo(Long id_equipo);
+
+    List<Jugador> findByEquipoId(Long id);
 }

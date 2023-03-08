@@ -11,4 +11,7 @@ public interface PartidaService {
     Partida save(Partida jugador);
     void deleteById(Long id);
     boolean existsById(Long id);
+    List<Partida> findByJugadorId(Long jugadorId);
+
+    int getTotalPuntosByJugadorId(Long jugadorId);
 }

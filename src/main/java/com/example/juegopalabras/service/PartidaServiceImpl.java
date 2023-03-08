@@ -37,4 +37,17 @@ public class PartidaServiceImpl implements PartidaService{
     public boolean existsById(Long id) {
         return partidaRepository.existsById(id);
     }
+    @Override
+    public List<Partida> findByJugadorId(Long jugadorId) {
+        return partidaRepository.findByJugadorId(jugadorId);
+    }
+    @Override
+    public int getTotalPuntosByJugadorId(Long jugadorId) {
+        List<Partida> partidas = findByJugadorId(jugadorId);
+        int totalPuntos = 0;
+        for (Partida partida : partidas) {
+            totalPuntos += partida.getPuntos();
+        }
+        return totalPuntos;
+    }
 }

@@ -34,4 +34,5 @@ public class Jugador {
     @Builder.Default
     @OneToMany(mappedBy = "jugador", cascade = CascadeType.ALL)
     private Set<Partida> partidas = new HashSet<>();
+
 }

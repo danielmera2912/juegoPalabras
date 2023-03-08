@@ -19,5 +19,9 @@ public class Equipo {
 
     @Column(name = "fecha_modificacion")
     private LocalDateTime fechaModificacion;
-
+    @OneToMany(mappedBy = "equipo")
+    private List<Jugador> jugadores;
+    public List<Jugador> getJugadores() {
+        return jugadores;
+    }
 }

@@ -29,7 +29,6 @@ public class JugadorController {
     public Jugador findById(@PathVariable Long id) {
         return jugadorService.findById(id).orElseThrow(() -> new JugadorNotFoundException(id));
     }
-
     @PostMapping("/jugador")
     public Jugador newJugador(@RequestBody Jugador newJugador){
         return jugadorService.save(newJugador);

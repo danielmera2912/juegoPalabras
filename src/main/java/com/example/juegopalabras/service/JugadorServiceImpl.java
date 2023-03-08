@@ -51,4 +51,8 @@ public class JugadorServiceImpl implements JugadorService {
     public List<Jugador> obtenerJugadoresPorEquipo(Long id_equipo) {
         return jugadorRepository.findByEquipoId(id_equipo);
     }
+    @Override
+    public List<Jugador> findByEquipoId(Long id) {
+        return jugadorRepository.findByEquipoId(id);
+    }
 }

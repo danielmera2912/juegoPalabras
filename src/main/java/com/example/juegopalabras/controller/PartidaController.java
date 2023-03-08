@@ -30,7 +30,15 @@ public class PartidaController {
     public Partida getPartida(@PathVariable Long id) {
         return partidaService.findById(id).orElseThrow(() -> new PartidaNotFoundException(id));
     }
-
+    @GetMapping("/jugador/{id}/puntos")
+    public int getPuntosTotalesJugador(@PathVariable Long id) {
+        List<Partida> partidas = partidaService.findByJugadorId(id);
+        int puntosTotales = 0;
+        for (Partida partida : partidas) {
+            puntosTotales += partida.getPuntos();
+        }
+        return puntosTotales;
+    }
     @PostMapping("/partida")
     public Partida newPartida(@RequestBody Partida newPartida)
     {
