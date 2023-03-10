@@ -14,6 +14,8 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
+
 @Service
 @RequiredArgsConstructor
 public class PartidaServiceImpl implements PartidaService{
@@ -60,19 +62,5 @@ public class PartidaServiceImpl implements PartidaService{
         }
         return totalPuntos;
     }
-    @Override
-    public String obtenerPalabra(){
-        List<String> palabras= new ArrayList<>();
-        ClassPathResource resource = new ClassPathResource("palabras.txt");
-        try (BufferedReader reader = new BufferedReader(new InputStreamReader(resource.getInputStream()))){
-            String line;
-            while((line=reader.readLine()) != null){
-                palabras.add(line.trim());
 
-            }
-        }catch (IOException ioe){
-            return null;
-        }
-        return palabras.get((int) (Math.random() * palabras.size() + 1));
-    }
 }

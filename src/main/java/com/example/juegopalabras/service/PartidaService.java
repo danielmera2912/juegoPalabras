@@ -15,5 +15,4 @@ public interface PartidaService {
 
     int getTotalPuntosByJugadorId(Long jugadorId);
 
-    String obtenerPalabra();
 }

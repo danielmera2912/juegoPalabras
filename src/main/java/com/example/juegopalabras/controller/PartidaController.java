@@ -32,11 +32,6 @@ public class PartidaController {
             return  partidaService.getTotalPuntosByJugadorId(id);
 
     }
-    @GetMapping("/palabra")
-    public String obtenerPalabra() {
-        return  partidaService.obtenerPalabra();
-
-    }
     @PostMapping("/partida")
     public Partida newPartida(@RequestBody Partida newPartida)
     {
